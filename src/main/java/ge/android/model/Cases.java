@@ -13,7 +13,8 @@ public class Cases {
     private CaseTypes type;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     public int getId() {
         return id;
     }
@@ -23,7 +24,7 @@ public class Cases {
     }
 
     @Basic
-    @Column(name = "number", nullable = false, length = 50)
+    @Column(name = "`number`", nullable = false, length = 50)
     public String getNumber() {
         return number;
     }
@@ -53,7 +54,7 @@ public class Cases {
     }
 
     @Basic
-    @Column(name = "desc", nullable = true, length = 200)
+    @Column(name = "`desc`", nullable = true, length = 200)
     public String getDesc() {
         return desc;
     }

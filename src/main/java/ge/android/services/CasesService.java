@@ -38,9 +38,9 @@ public class CasesService {
         cases.setNumber(request.getNumber());
         cases.setType(caseDao.find(CaseTypes.class, request.getTypeId()));
         if (cases.getId() > 0) {
-            cases = caseDao.create(cases);
-        } else {
             cases = caseDao.update(cases);
+        } else {
+            cases = caseDao.create(cases);
         }
         return CasesDTO.parse(cases);
     }

@@ -46,7 +46,6 @@ public class UsersService {
         } else {
             user = userDao.create(user);
         }
-        userDao.getEntityManager().flush();
         return UsersDTO.parse(user);
     }
 

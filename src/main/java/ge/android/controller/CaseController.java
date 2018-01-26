@@ -2,12 +2,14 @@ package ge.android.controller;
 
 import ge.android.dto.CaseTypesDTO;
 import ge.android.dto.CasesDTO;
+import ge.android.misc.Response;
 import ge.android.request.AddCaseRequest;
 import ge.android.services.CasesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -38,5 +40,12 @@ public class CaseController {
     @ResponseBody
     public CasesDTO saveCase(@RequestBody AddCaseRequest request) throws Exception {
         return casesService.save(request);
+    }
+
+    @RequestMapping({"/delete-case"})
+    @ResponseBody
+    public Response saveUser(@RequestParam Integer caseId) throws Exception {
+        casesService.delete(caseId);
+        return Response.ok();
     }
 }
