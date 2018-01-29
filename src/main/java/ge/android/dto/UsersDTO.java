@@ -30,6 +30,7 @@ public class UsersDTO {
     private UserTypesDTO type;
     @JsonSerialize(using = JsonDateSerializeSupport.class)
     private Timestamp createDate;
+    private String token;
 
     public static int ACTIVE_USER = 1;
     public static int NOT_ACTIVE_USER = 2;
@@ -48,6 +49,7 @@ public class UsersDTO {
         userDTO.setTypeId(user.getType().getId());
         userDTO.setType(user.getType() != null ? UserTypesDTO.parse(user.getType()) : null);
         userDTO.setCreateDate(user.getCreateDate());
+        userDTO.setToken(user.getToken());
         return userDTO;
     }
 
@@ -58,6 +60,14 @@ public class UsersDTO {
             dTOs.add(UsersDTO.parse(p));
         }
         return dTOs;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getId() {

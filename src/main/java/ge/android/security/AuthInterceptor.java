@@ -1,5 +1,7 @@
 package ge.android.security;
 
+import ge.android.services.UsersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -13,11 +15,19 @@ import java.io.IOException;
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
+    @Autowired
+    private UsersService usersService;
+
     @Override
     public boolean preHandle(final HttpServletRequest request, final HttpServletResponse response, final Object handler) throws IOException {
 
-//        Integer userId = (Integer) request.getSession().getAttribute("userId");
-//        String uri = request.getRequestURI();
+        String token = request.getHeader("token");
+        if (token != null && token.length() > 0) {
+            if (usersService.loginWithToken(token) != null) {
+                return true;
+            }
+        }
+        return false;
 //
 //        if (userId == null && request.getHeader("X-Requested-With") == null) {
 //            if (uri.startsWith(request.getContextPath())) {
@@ -34,6 +44,5 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 //            response.sendError(353, "სესიას გაუვიდა ვადა, გთხოვთ თავიდან გაიაროთ ავტორიზაცია");
 //            return false;
 //        }
-        return true;
     }
 }

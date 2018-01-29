@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,13 +45,20 @@ public class UsersService {
         if (user.getId() > 0) {
             user = userDao.update(user);
         } else {
+            user.setToken(MD5Provider.doubleMd5(new Date().getTime() + ""));
             user = userDao.create(user);
         }
         return UsersDTO.parse(user);
     }
 
-    public UsersDTO login(String userName, String password, int loginType) {
-        List<Users> users = userDao.login(userName, MD5Provider.doubleMd5(password), loginType);
+    public UsersDTO login(String userName, String password) {
+        List<Users> users = userDao.login(userName, MD5Provider.doubleMd5(password));
+        Users u = users != null && !users.isEmpty() ? users.get(0) : null;
+        return u != null ? UsersDTO.parse(u) : null;
+    }
+
+    public UsersDTO loginWithToken(String token) {
+        List<Users> users = userDao.loginWithToken(token);
         Users u = users != null && !users.isEmpty() ? users.get(0) : null;
         return u != null ? UsersDTO.parse(u) : null;
     }

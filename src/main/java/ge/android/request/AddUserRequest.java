@@ -8,6 +8,15 @@ public class AddUserRequest {
     private String lastname;
     private int status;
     private int typeId;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int getId() {
         return id;

@@ -13,10 +13,11 @@ public class Users {
     private int status;
     private UserTypes type;
     private Timestamp createDate;
+    private String token;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -93,5 +94,15 @@ public class Users {
 
     public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
+    }
+
+    @Basic
+    @Column(name = "token", nullable = false, updatable = false, length = 50)
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

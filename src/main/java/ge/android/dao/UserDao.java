@@ -28,12 +28,20 @@ public class UserDao extends AbstractDao<Users> {
         return entityManager;
     }
 
-    public List<Users> login(String username, String password, int loginType) {
+    public List<Users> login(String username, String password) {
         StringBuilder q = new StringBuilder();
         q.append("Select e From ").append(Users.class.getSimpleName()).
-                append(" e Where e.username ='").append(username).append("'")
+                append(" e Where e.status=1 and e.username ='").append(username).append("'")
                 .append(" and e.password ='").append(password).append("'");
 
+        TypedQuery<Users> query = entityManager.createQuery(q.toString(), Users.class);
+        return query.getResultList();
+    }
+
+    public List<Users> loginWithToken(String token) {
+        StringBuilder q = new StringBuilder();
+        q.append("Select e From ").append(Users.class.getSimpleName()).
+                append(" e Where e.status = 1 and e.token ='").append(token).append("'");
         TypedQuery<Users> query = entityManager.createQuery(q.toString(), Users.class);
         return query.getResultList();
     }

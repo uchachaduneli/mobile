@@ -135,10 +135,31 @@
       <NotNull>1</NotNull>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
     </column>
-    <key id="38" parent="14" name="PRIMARY">
+    <column id="38" parent="14" name="token">
+      <Position>9</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="39" parent="14" name="uniq_token">
+      <ColNames>token</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="40" parent="14" name="uniq_username">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="41" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
+    </key>
+    <key id="42" parent="14" name="uniq_username">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>uniq_username</UnderlyingIndexName>
+    </key>
+    <key id="43" parent="14" name="uniq_token">
+      <ColNames>token</ColNames>
+      <UnderlyingIndexName>uniq_token</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
